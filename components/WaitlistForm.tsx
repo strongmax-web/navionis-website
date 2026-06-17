@@ -2,29 +2,42 @@
 
 import { FormEvent, useState } from "react";
 
-const ROLES = [
-  "Yacht crew",
-  "OOW student",
-  "Master student",
-  "Merchant navy",
-  "Sailing / cruising",
-  "Instructor",
-  "Other",
-];
+import { WAITLIST_ROLES } from "@/lib/constants";
 
 export default function WaitlistForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
+  const [message, setMessage] = useState("");
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setSubmitting(true);
+    setError("");
 
-    const submission = { name, email, role, submittedAt: new Date().toISOString() };
-    console.log("Navionis waitlist submission:", submission);
+    try {
+      const response = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, role, message: message || undefined }),
+      });
 
-    setSubmitted(true);
+      const data = (await response.json()) as { error?: string };
+
+      if (!response.ok) {
+        setError(data.error ?? "Something went wrong. Please try again.");
+        return;
+      }
+
+      setSubmitted(true);
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (submitted) {
@@ -44,7 +57,8 @@ export default function WaitlistForm() {
           required
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="min-h-11 rounded-md border border-steel-grey/40 bg-charcoal px-4 py-3 text-base text-ivory outline-none focus:border-brass"
+          disabled={submitting}
+          className="min-h-11 rounded-md border border-steel-grey/40 bg-charcoal px-4 py-3 text-base text-ivory outline-none focus:border-brass disabled:opacity-60"
         />
       </label>
 
@@ -55,7 +69,8 @@ export default function WaitlistForm() {
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="min-h-11 rounded-md border border-steel-grey/40 bg-charcoal px-4 py-3 text-base text-ivory outline-none focus:border-brass"
+          disabled={submitting}
+          className="min-h-11 rounded-md border border-steel-grey/40 bg-charcoal px-4 py-3 text-base text-ivory outline-none focus:border-brass disabled:opacity-60"
         />
       </label>
 
@@ -65,24 +80,43 @@ export default function WaitlistForm() {
           required
           value={role}
           onChange={(e) => setRole(e.target.value)}
-          className="min-h-11 rounded-md border border-steel-grey/40 bg-charcoal px-4 py-3 text-base text-ivory outline-none focus:border-brass"
+          disabled={submitting}
+          className="min-h-11 rounded-md border border-steel-grey/40 bg-charcoal px-4 py-3 text-base text-ivory outline-none focus:border-brass disabled:opacity-60"
         >
           <option value="" disabled>
             Select your role
           </option>
-          {ROLES.map((option) => (
-            <option key={option} value={option}>
-              {option}
+          {WAITLIST_ROLES.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
             </option>
           ))}
         </select>
       </label>
 
+      <label className="flex flex-col gap-2 text-sm text-steel-grey">
+        What would you want Navionis to help you with? (optional)
+        <textarea
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          disabled={submitting}
+          rows={3}
+          className="rounded-md border border-steel-grey/40 bg-charcoal px-4 py-3 text-base text-ivory outline-none focus:border-brass disabled:opacity-60"
+        />
+      </label>
+
+      {error ? (
+        <p className="rounded-md border border-red-400/40 bg-red-950/30 px-4 py-3 text-sm text-red-200">
+          {error}
+        </p>
+      ) : null}
+
       <button
         type="submit"
-        className="mt-2 min-h-11 rounded-md bg-brass px-6 py-3 text-base font-semibold text-deep-navy transition-opacity hover:opacity-90"
+        disabled={submitting}
+        className="mt-2 min-h-11 rounded-md bg-brass px-6 py-3 text-base font-semibold text-deep-navy transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
       >
-        Join the Waitlist
+        {submitting ? "Joining..." : "Join the Waitlist"}
       </button>
     </form>
   );
