@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+:root {
+  --deep-navy: #03162b;
+  --charcoal: #2a2f36;
+  --steel-grey: #6b7280;
+  --muted-brass: #a8874c;
+  --ivory: #f5f3ef;
+}
+
+@theme inline {
+  --color-deep-navy: var(--deep-navy);
+  --color-charcoal: var(--charcoal);
+  --color-steel-grey: var(--steel-grey);
+  --color-brass: var(--muted-brass);
+  --color-ivory: var(--ivory);
+  --font-sans: var(--font-geist-sans);
+}
+
+body {
+  background: var(--deep-navy);
+  color: var(--ivory);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
