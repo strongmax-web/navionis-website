@@ -1,39 +1,34 @@
 import Image from "next/image";
-import BackgroundWatermarks from "@/components/BackgroundWatermarks";
-import WaitlistForm from "@/components/WaitlistForm";
+import InstrumentBackdrop from "@/components/InstrumentBackdrop";
+import ReductionStrip from "@/components/ReductionStrip";
 
 export default function Home() {
   return (
-    <>
-      <BackgroundWatermarks />
-      <main className="relative z-10 mx-auto flex min-h-screen max-w-3xl flex-col items-center px-6 py-16 sm:py-24">
-      <Image
-        src="/images/Navionis_logo.png"
-        alt="Navionis"
-        width={280}
-        height={280}
-        priority
-        className="mb-8 h-auto w-48 sm:w-56"
-      />
+    <main className="stage">
+      <InstrumentBackdrop />
 
-      <p className="mb-2 text-sm font-semibold tracking-[0.35em] text-brass">NAVIONIS</p>
-      <p className="mb-12 text-center text-steel-grey">
-        Celestial Navigation. Certainty at Sea.
-      </p>
-
-      <section className="mb-16 w-full text-center">
-        <p className="text-sm font-semibold tracking-[0.4em] text-brass sm:text-base">
-          COMING SOON
-        </p>
-      </section>
-
-      <section className="w-full rounded-xl border border-steel-grey/25 bg-charcoal p-6 sm:p-8">
-        <h2 className="mb-6 text-center text-xl font-semibold text-ivory">Join the Waitlist</h2>
-        <div className="flex justify-center">
-          <WaitlistForm />
+      <div className="core">
+        <div className="emblem">
+          <Image
+            src="/images/navionis_mark.png"
+            alt="Navionis"
+            width={376}
+            height={376}
+            priority
+          />
         </div>
-      </section>
-      </main>
-    </>
+        <h1>NAVIONIS</h1>
+        <p className="tagline">Celestial Navigation. Certainty at Sea.</p>
+        <div className="rule" />
+        <p className="status">Landing Soon</p>
+        <p className="lede">
+          An offline celestial navigation instrument for mariners.
+        </p>
+      </div>
+
+      <div className="footwrap">© 2026 Navionis</div>
+
+      <ReductionStrip />
+    </main>
   );
 }
