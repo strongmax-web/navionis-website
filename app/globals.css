@@ -108,15 +108,6 @@ h1{
   color:rgba(245,243,239,.74);
   text-transform:uppercase;
 }
-.lede{
-  margin:22px 0 0;
-  max-width:42ch;
-  text-wrap:balance;
-  font-size:clamp(13px,2.6vw,14.5px);
-  font-weight:200;
-  line-height:1.75;
-  color:rgba(245,243,239,.42);
-}
 
 /* ---------- sight-reduction strip ---------- */
 .strip{

@@ -21,9 +21,6 @@ export default function Home() {
         <p className="tagline">Celestial Navigation. Certainty at Sea.</p>
         <div className="rule" />
         <p className="status">Landing Soon</p>
-        <p className="lede">
-          An offline celestial navigation instrument for mariners.
-        </p>
       </div>
 
       <div className="footwrap">© 2026 Navionis</div>

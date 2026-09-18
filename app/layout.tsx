@@ -2,8 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 const TITLE = "Navionis — Celestial Navigation. Certainty at Sea.";
-const DESCRIPTION =
-  "An offline celestial navigation instrument for mariners. Landing soon.";
+const DESCRIPTION = "Celestial Navigation. Certainty at Sea. Landing soon.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://navionisofficial.com"),
