@@ -40,7 +40,6 @@ body{
 .glow{
   position:absolute; inset:0; z-index:-3; pointer-events:none;
   background:
-    radial-gradient(56% 42% at 50% 33%, rgba(168,135,76,.14) 0%, rgba(168,135,76,.05) 38%, rgba(3,22,43,0) 72%),
     radial-gradient(130% 62% at 50% 112%, rgba(120,150,180,.11) 0%, rgba(3,22,43,0) 62%),
     linear-gradient(180deg,#02101f 0%, #03162b 46%, #041c33 100%);
 }
@@ -69,12 +68,6 @@ body{
 
 .emblem{position:relative; width:188px; height:188px; margin-bottom:40px}
 .emblem img{width:100%; height:100%; display:block}
-.emblem::after{
-  content:""; position:absolute; inset:-36%; border-radius:50%;
-  background:radial-gradient(circle at 50% 42%, rgba(201,165,95,.22) 0%, rgba(201,165,95,.06) 40%, rgba(3,22,43,0) 70%);
-  z-index:-1; animation:breathe 7s ease-in-out infinite;
-}
-@keyframes breathe{0%,100%{opacity:.72; transform:scale(1)} 50%{opacity:1; transform:scale(1.05)}}
 
 h1{
   margin:0;
